@@ -29,35 +29,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = cityTableView.dequeueReusableCell(withIdentifier: "CityCell", for: indexPath)
         
-        // 都道府県の番号を計算
-        let prefecturesNumber = indexPath.row + 1
-        
         // 都道府県名と都道府県の番号をセルに代入
         cell.textLabel?.text = prefectures[indexPath.row]
-        cell.detailTextLabel?.text = "\(prefecturesNumber)番目の都道府県です。"
+        cell.detailTextLabel?.text = "\(indexPath.row + 1)番目の都道府県です。"
         
-        // 都道府県名は左揃え、都道府県の番号は右揃えに設定
-        cell.textLabel?.textAlignment = .left
-        cell.detailTextLabel?.textAlignment = .right
-        
-        // セルの背景色を設定
-        switch indexPath.row % 3 {
-        case 0:
-            cell.backgroundColor = UIColor.red.withAlphaComponent(0.1)
-        case 1:
-            cell.backgroundColor = UIColor.green.withAlphaComponent(0.1)
-        case 2:
-            cell.backgroundColor = UIColor.blue.withAlphaComponent(0.1)
-        default:
-            break
-        }
-        
-        // セルのフォントサイズを設定
-        cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
-        cell.detailTextLabel?.font = UIFont.systemFont(ofSize: 16)
+        let colors: [UIColor] = [
+            .red,
+            .green,
+            .blue
+        ]
+
+        cell.backgroundColor = colors[indexPath.row % colors.count].withAlphaComponent(0.1)
         
         // 作成したセルを表示
         return cell
     }
 }
-
